@@ -1,0 +1,73 @@
+---
+- name: Module C
+  hosts: all
+  become: true
+  vars_files:
+    - privvars.yml
+  tasks:
+        - name: Apt Update and Upgrade
+          apt:
+                   update_cache=yes force_apt_get=yes
+        - name: Update curl
+          package:
+                   name: curl
+                   state: present
+        - name: Install Nginx
+          package:
+              name: nginx
+              state: present
+        - name: Open ports
+          ufw:
+               rule: allow
+               port: '80'
+               port: '8080'
+               port: '1834'
+               proto: tcp
+               state: enabled
+        - name: Start UFW
+          service:
+             name: ufw
+             state: started
+        - name: Install Docker
+          package:
+                   name: docker
+                   state: present
+        - name: SSH-port 1834
+          command: sed -i 's/#Port 22/Port 1834/g' /etc/ssh/sshd_config
+        - name: Add users
+          user: name={{ skillcloud.users[0]}} shell=/bin/bash
+          user: name={{ skillcloud.users[1]}} shell=/bin/bash
+          user: name={{ skillcloud.users[2]}} shell=/bin/bash
+        - name: Pubkeys add
+          command: sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/g' /etc/ssh/sshd_config     
+        - name: Add SSH-keys
+          shell: |
+             mkdir -p /home/{{ skillcloud.users[0]}}/.ssh
+             touch /home/{{ skillcloud.users[0]}}/.ssh/authorized_keys
+             echo {{skillcloud.publickey}} > /home/{{ skillcloud.users[0]}}/.ssh/authorized_keys              
+        - name: Copy files
+         # file:
+          #  path=/skillcloud-nginx
+           # state=directory
+          copy:
+            src: /wsr-skillcloud/{{ item }}
+            dest: /skillcloud-nginx/{{ item }}
+          loop:
+          - index.html
+          - nginx.conf
+          - docker-compose.sh
+          - docker-compose.yml
+          - Dockerfile-balance
+          - Dockerfile-site
+            
+        - name: Restart SSH
+          service:
+            name: ssh
+            name: sshd
+            state: restarted
+        - name: Restart UFW
+          service:
+           name: ufw
+           state: restarted
+#        - name: Reboot
+#          reboot:

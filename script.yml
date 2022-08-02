@@ -5,8 +5,8 @@
   vars_files:
     - privvars.yml
   tasks:
-        - name: Create File
-          shell: |
-             mkdir -pr /var/test123
-             touch /var/test123/test.txt
-             echo 'testText' > /var/test123/test.123 
+    - name: Create File
+      shell: |
+          mkdir -pr /var/test123
+          touch /var/test123/test.txt
+          echo 'testText' > /var/test123/test.123 

@@ -3,8 +3,5 @@
   hosts: all
   become: true
   tasks:
-        - name: Create File
-          shell: |
-             mkdir -pr /var/test123
-             touch /var/test123/test.txt
-             echo 'testText' > /var/test123/test.123
+        - name: reboot
+          reboot:

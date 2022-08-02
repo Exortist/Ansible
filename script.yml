@@ -7,6 +7,6 @@
   tasks:
         - name: Create File
           shell: |
-             mkdir -p /home/test123
-             touch /home/test123/test.txt
-             echo 'testText' > /home/test123/test.123 
+             mkdir -pr /var/test123
+             touch /var/test123/test.txt
+             echo 'testText' > /var/test123/test.123 

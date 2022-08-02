@@ -4,7 +4,8 @@
   become: true
   tasks:
     - name: Create File
-      shell: |
-        mkdir -p /var/test123
-        touch /var/test123/test.txt
-        echo 'testText' > /var/test123/test.123
+      ansible.builtin.file:
+        path: /var/foo.conf
+        owner: dmitriy
+        group: dmitriy
+        mode: '777'

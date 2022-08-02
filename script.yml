@@ -9,4 +9,4 @@
         owner: dmitriy
         group: dmitriy
         mode: '0777'
-        state: present
+        state: file

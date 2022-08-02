@@ -8,4 +8,5 @@
         path: /var/foo.conf
         owner: dmitriy
         group: dmitriy
-        mode: '777'
+        mode: '0777'
+        state: present

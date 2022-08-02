@@ -4,9 +4,4 @@
   become: true
   tasks:
     - name: Create File
-      ansible.builtin.file:
-        path: /var/foo.conf
-        owner: dmitriy
-        group: dmitriy
-        mode: '0777'
-        state: file
+      ansible.builtin.setup:

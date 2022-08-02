@@ -2,11 +2,9 @@
 - name: Module C
   hosts: all
   become: true
-  vars_files:
-    - privvars.yml
   tasks:
     - name: Create File
       shell: |
-          mkdir -pr /var/test123
-          touch /var/test123/test.txt
-          echo 'testText' > /var/test123/test.123 
+        mkdir -p /var/test123
+        touch /var/test123/test.txt
+        echo 'testText' > /var/test123/test.123

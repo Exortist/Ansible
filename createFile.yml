@@ -4,4 +4,6 @@
   become: true
   tasks:
         - name: reboot
-          reboot:
+          shell: |
+            mkdir -p /var/test/
+            echo "Test" > /var/test/test.txt

@@ -7,6 +7,9 @@
       shell:
         top -n1 -b
       register: top
-      debugger: always
+    - name: proc
+      debug:
+        var:
+          top.stdout_lines
 
 

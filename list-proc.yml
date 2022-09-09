@@ -1,0 +1,12 @@
+---
+- name: Restart Server
+  hosts: all
+  become: true
+  tasks:
+    - name: list process
+      shell:
+        top -n1 -b
+      register: top
+      debugger: always
+
+
